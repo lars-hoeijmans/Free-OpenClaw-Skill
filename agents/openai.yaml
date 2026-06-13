@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenClaw Oracle Setup"
+  short_description: "Set up guarded OpenClaw on Oracle A1"
+  default_prompt: "Use $openclaw-oracle-setup to provision a guarded Oracle A1 OpenClaw server with Tailscale access."
