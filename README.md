@@ -1,4 +1,4 @@
-# 🦞 openclaw-oracle-setup
+# 🦞 Free-OpenClaw-Skill
 
 **Your own AI assistant — on your own cloud box, in your pocket.**
 An agent skill that sets up a private, phone-controlled [OpenClaw](https://openclaw.ai) assistant on a cheap Oracle Cloud ARM server… guided by an agent that already knows every pothole, so you don't have to step in them.
