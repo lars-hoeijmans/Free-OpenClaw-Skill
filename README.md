@@ -26,7 +26,7 @@ Written for an AI agent helping a human **anywhere** on the spectrum from *senio
 
 1. Drop the skill into your Codex skills folder:
    ```bash
-   git clone https://github.com/tedinasuit/openclaw-oracle-setup ~/.codex/skills/openclaw-oracle-setup
+   git clone https://github.com/lars-hoeijmans/openclaw-oracle-setup ~/.codex/skills/openclaw-oracle-setup
    ```
 2. Ask your agent:
    > "Use **openclaw-oracle-setup** to provision a guarded Oracle A1 OpenClaw server I can control from my phone."
