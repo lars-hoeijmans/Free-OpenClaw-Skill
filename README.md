@@ -38,7 +38,7 @@ Written for an AI agent helping a human **anywhere** on the spectrum from *senio
 
 - An **Oracle Cloud** account — the skill walks you through signup and the PAYG upgrade, with guardrails that keep real spend at **€0** if you stay inside Always-Free limits.
 - A **Tailscale** account (free tier is plenty).
-- A **model** — a ChatGPT/Claude subscription (via OAuth), an API key, or free models via OpenCode Zen.
+- A **model** — a ChatGPT/Claude subscription (via OAuth) or **free** models via OpenCode Zen.
 - **Telegram** on your phone (and/or a **Slack** workspace) if you want chat control.
 
 ## 🕳️ Potholes it walks you around
