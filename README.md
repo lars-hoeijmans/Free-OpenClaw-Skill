@@ -1,17 +1,27 @@
 # 🦞 Free-OpenClaw-Skill
 
-**Your own AI assistant — on your own cloud box, in your pocket.**
-An agent skill that sets up a private, phone-controlled [OpenClaw](https://openclaw.ai) assistant on a cheap Oracle Cloud ARM server… guided by an agent that already knows every pothole, so you don't have to step in them.
+**Your own AI assistant — free, private, and in your pocket.**
+An agent skill that sets up a private, phone-controlled [OpenClaw](https://openclaw.ai) assistant on a **free** Oracle Cloud ARM server… guided by an agent that already knows every pothole, so you don't have to step in them.
 
 > It started as one real, end-to-end setup. Every trap we hit got written down — so the *next* run is the smooth one.
 
 ---
 
+## 💸 The best part: it runs on free
+
+No new subscriptions required — the whole stack stands on free tiers:
+
+- 🆓 **The server** — Oracle Cloud's **Always Free** ARM VM (`VM.Standard.A1.Flex`). The skill's quota + budget guardrails keep real spend at **€0**, even after the PAYG upgrade that's sometimes needed to get past Oracle's capacity limits.
+- 🆓 **The brains** — free **OpenCode Zen** models ($0), fetched live at setup so you always get the current free lineup.
+- ♻️ **Already paying for ChatGPT (or Claude)?** Plug your existing subscription in via OAuth and use it too — no new spend, just extra model muscle when you want it.
+
+Floor cost: **$0/month.** Bring a paid model only if you already have one.
+
 ## ✨ What you end up with
 
 A pocket-sized AI ops assistant that's actually *yours*:
 
-- 🖥️ **A free/cheap Oracle ARM server** (`VM.Standard.A1.Flex`), provisioned by CLI with real cost guardrails.
+- 🖥️ **A free Oracle ARM server** (`VM.Standard.A1.Flex`), provisioned by CLI with real cost guardrails.
 - 🔒 **Private by default** — bound to loopback, reachable only over your [Tailscale](https://tailscale.com) network. The public internet can't see it.
 - 🤖 **OpenClaw Gateway** running as a service, with a model *and a tested fallback* wired up.
 - 📱 **Telegram + Slack control** — text it from anywhere, no VPN. Locked to *you*.
@@ -26,7 +36,7 @@ Written for an AI agent helping a human **anywhere** on the spectrum from *senio
 
 1. Drop the skill into your Codex skills folder:
    ```bash
-   git clone https://github.com/lars-hoeijmans/openclaw-oracle-setup ~/.codex/skills/openclaw-oracle-setup
+   git clone https://github.com/lars-hoeijmans/Free-OpenClaw-Skill ~/.codex/skills/openclaw-oracle-setup
    ```
 2. Ask your agent:
    > "Use **openclaw-oracle-setup** to provision a guarded Oracle A1 OpenClaw server I can control from my phone."
@@ -38,7 +48,7 @@ Written for an AI agent helping a human **anywhere** on the spectrum from *senio
 
 - An **Oracle Cloud** account — the skill walks you through signup and the PAYG upgrade, with guardrails that keep real spend at **€0** if you stay inside Always-Free limits.
 - A **Tailscale** account (free tier is plenty).
-- A **model** — a ChatGPT/Claude subscription (via OAuth) or **free** models via OpenCode Zen.
+- A **model** — free OpenCode Zen models out of the box; or a ChatGPT/Claude subscription (via OAuth) if you already have one.
 - **Telegram** on your phone (and/or a **Slack** workspace) if you want chat control.
 
 ## 🕳️ Potholes it walks you around
