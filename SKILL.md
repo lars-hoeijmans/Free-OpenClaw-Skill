@@ -33,6 +33,16 @@ here. Regardless of their level:
 - Prefer OCI CLI for repeatability, but use the Oracle Console for PAYG upgrade, payment verification, Tailscale approvals, and other browser-only steps.
 - Keep OpenClaw Gateway bound to loopback. Expose it through Tailscale Serve or an SSH tunnel, not public HTTP.
 - After Tailscale SSH is verified, remove public TCP 22 from OCI ingress and leave only UDP 41641 for Tailscale.
+- **Finish setup by baking the documentation rule into the agent's workspace.** After the gateway
+  is live and a channel is connected, add the following directive to the agent's `AGENTS.md` and/or
+  `TOOLS.md` so every new capability is permanently recorded from day one:
+  > *"Whenever you install, configure, or enable a new capability (transcription, MCP servers, dev
+  > tools, channel integrations, etc.), write a permanent record in `TOOLS.md` and/or `AGENTS.md`
+  > with the exact setup commands, paths, and usage notes. Do not leave it undocumented or in an
+  > ephemeral location. Verify the capability works end-to-end after documenting, and clean up any
+  > temporary or duplicate setups."*
+  This is the single most important fix for reliability — without it, a future restart session
+  will have no memory of how capabilities were set up and will waste time rebuilding them.
 
 ## Human Handoffs (only the human can do these)
 
@@ -504,8 +514,9 @@ model. (A real run produced a `~/whisper-env` venv + a `transcribe.sh <audio> [m
 + the `faster-whisper-tiny` model — the agent chose this over the bundled skill on its own.)
 
 Make it reliable and more accurate:
-- Ask OpenClaw to **record how it transcribes in its workspace notes** (`AGENTS.md`/`TOOLS.md`)
-  so it reliably reuses the wrapper on every voice note instead of rebuilding it ad hoc.
+- The documentation rule (Operating Rules, above) is already baked into the agent's workspace at
+  setup time, so the agent will **automatically record how it transcribes** in its `TOOLS.md` —
+  verified path, model, and wrapper — and reuse it on every voice note instead of rebuilding ad hoc.
 - The default `tiny` model is fast but rough. For better accuracy ask it to use **`base`** or
   **`small`** (tiers: `tiny → base → small → medium → large-v3`, trading speed/RAM for accuracy).
 - A venv install is persistent (survives reboot); the bundled skill's brew path is not.
@@ -543,8 +554,8 @@ Things the user can simply ask the assistant to do:
   you can browse and test websites", "install ffmpeg for audio/video".
 - **More wiring:** "connect another channel", "add an MCP server for <service>", "enable the
   `<name>` skill" (`openclaw skills list` shows what's bundled).
-- **Self-documenting:** "save how you did that in your notes" so it reuses the recipe (it keeps
-  working instructions in its `AGENTS.md` / `TOOLS.md`).
+- **Self-documenting (built-in):** The documentation rule installed during setup means the agent
+  already knows to record every new capability in its `TOOLS.md` automatically — no need to ask.
 
 A good closing hand-off to the user sounds like:
 
