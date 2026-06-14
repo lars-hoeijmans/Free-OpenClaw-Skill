@@ -514,9 +514,8 @@ model. (A real run produced a `~/whisper-env` venv + a `transcribe.sh <audio> [m
 + the `faster-whisper-tiny` model — the agent chose this over the bundled skill on its own.)
 
 Make it reliable and more accurate:
-- With the documentation rule in Operating Rules (above), the agent will now **automatically record
-  how it transcribes** in its `TOOLS.md` — verified path, model, and wrapper — and reuse it on
-  every voice note instead of rebuilding ad hoc.
+- Ask OpenClaw to **record how it transcribes in its workspace notes** (`AGENTS.md`/`TOOLS.md`)
+  so it reliably reuses the wrapper on every voice note instead of rebuilding it ad hoc.
 - The default `tiny` model is fast but rough. For better accuracy ask it to use **`base`** or
   **`small`** (tiers: `tiny → base → small → medium → large-v3`, trading speed/RAM for accuracy).
 - A venv install is persistent (survives reboot); the bundled skill's brew path is not.
@@ -554,9 +553,8 @@ Things the user can simply ask the assistant to do:
   you can browse and test websites", "install ffmpeg for audio/video".
 - **More wiring:** "connect another channel", "add an MCP server for <service>", "enable the
   `<name>` skill" (`openclaw skills list` shows what's bundled).
-- **Self-documenting (automatic):** The documentation rule (added to the agent's workspace as
-  part of this setup sequence) means the agent will record every new capability in its `TOOLS.md`
-  automatically — no need to specifically ask.
+- **Self-documenting:** "save how you did that in your notes" so it reuses the recipe (it keeps
+  working instructions in its `AGENTS.md` / `TOOLS.md`).
 
 A good closing hand-off to the user sounds like:
 
