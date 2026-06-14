@@ -82,7 +82,10 @@ clearly restate the single pending action.
 7. Install and configure OpenClaw:
    - Use `scripts/install-openclaw-gateway.sh`.
    - Configure gateway bind `loopback`, auth mode `token`, Tailscale mode `serve`, and trusted proxy `["127.0.0.1"]`.
-   - Install/start the user systemd gateway service.
+   - Install/start the user systemd gateway service. Add a systemd drop-in with
+     `Restart=on-failure` / `RestartSec=10` so it self-heals — without it, a restart whose
+     task-drain times out gets SIGKILLed and the service stays `failed` for hours (all channels
+     go silent). The bundled `install-openclaw-gateway.sh` does this automatically.
    - Enable Tailscale Serve for HTTPS dashboard access (see "Tailscale Serve" below). It needs BOTH Serve enabled on the tailnet (admin approval URL) AND `sudo tailscale set --operator=<gateway-user>` so the gateway — which runs as a non-root user — can manage Serve. Without the operator it silently logs `serve failed` and access stays loopback-only.
 8. Verify:
    - `openclaw --version`
@@ -570,6 +573,19 @@ ssh ubuntu@openclaw 'jq "{mode: .gateway.auth.mode, isMask: (.gateway.auth.token
   Expect `mode: "token"`, `isMask: false`, `len` ~48. If auth was dropped or masked,
   restore from `openclaw.json.pre-update` (or `openclaw.json.last-good`) and restart the
   user service: `systemctl --user restart openclaw-gateway.service`.
+- **Bot silent on ALL channels at once** (Telegram + Slack stop replying together) = the
+  gateway process is down, not a channel issue. Check `systemctl --user is-active
+  openclaw-gateway.service`; if `failed`/`inactive`, recover with `systemctl --user reset-failed
+  openclaw-gateway.service && systemctl --user restart openclaw-gateway.service`, then confirm
+  `openclaw channels status --probe`. Root cause we hit: a config change (setting a model
+  fallback) triggered a gateway restart that tried to drain active tasks for 5 min, but
+  systemd's stop timeout fired at ~30s and SIGKILLed it — and with no restart policy it stayed
+  `failed` for ~9h. The `Restart=on-failure` drop-in (Workflow step 7) prevents the long
+  outage; check it's present (`systemctl --user show openclaw-gateway.service -p Restart`).
+- **A fallback (or default) pointed at an unconfigured provider** silently breaks that path:
+  an agent once set the fallback to `nvidia/nemotron-3-ultra-8b` with no `nvidia` provider and
+  not in the allowlist (→ `Unknown model`). Always set fallbacks to an **allowlisted** id and
+  TEST it (`openclaw infer model run --model <id> --prompt 'Reply: PONG'`).
 
 ## References
 

@@ -34,6 +34,14 @@ chmod 700 "\$HOME/.openclaw"
 openclaw gateway install --force --port "$OPENCLAW_PORT"
 openclaw gateway start
 
+# Self-heal: auto-restart if the gateway ever exits unexpectedly. Without this, a restart
+# whose task-drain times out gets SIGKILLed by systemd and the service stays "failed" for
+# hours (all channels go silent). A drop-in survives "openclaw gateway install" regenerating
+# the unit.
+mkdir -p "\$HOME/.config/systemd/user/openclaw-gateway.service.d"
+printf '[Service]\\nRestart=on-failure\\nRestartSec=10\\n' > "\$HOME/.config/systemd/user/openclaw-gateway.service.d/override.conf"
+systemctl --user daemon-reload
+
 echo
 openclaw --version
 openclaw gateway health
