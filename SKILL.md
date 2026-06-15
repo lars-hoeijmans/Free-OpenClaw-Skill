@@ -164,6 +164,7 @@ Before hand-off, verify the selected stack:
   - Hermes: `hermes doctor`, `hermes status`, `hermes gateway status` if gateway is enabled.
 - Primary and fallback models both return `PONG`.
 - Channel access is owner-locked.
+- For migrations, outbound delivery and inbound user-triggered replies work on every moved channel.
 - No secrets were written into project docs or chat.
 
 ## Finish Line

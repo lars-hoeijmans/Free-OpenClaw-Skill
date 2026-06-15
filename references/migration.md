@@ -59,6 +59,23 @@ Safe side-by-side recommendation:
 - Prefer separate Hermes channel identities for evaluation.
 - If switching over, stop OpenClaw gateway first, then migrate/reconfigure channels deliberately.
 
+## Post-Cutover Smoke Test
+
+After any migration that moves live Telegram, Slack, or other channel tokens:
+
+1. Confirm the old gateway is stopped and disabled.
+2. Confirm the new gateway is active and enabled.
+3. Confirm the new runtime's default and fallback models generate a real `PONG`.
+4. Confirm adapter logs show platform connection, such as Telegram polling or Slack Socket Mode.
+5. Send one outbound test message from the new runtime if the CLI supports it.
+6. Ask the user to send an inbound `ping` from every migrated channel and verify an agent reply.
+7. Explain changed channel UX before hand-off. For example, OpenClaw's custom Slack `/claudia`
+   command does not automatically become a Hermes command; use DM, mention, `/hermes`, or update
+   the Slack app manifest.
+
+Logs and outbound sends prove the transport is connected. The inbound user-triggered ping proves
+the user can actually drive the assistant.
+
 ## Hermes -> OpenClaw
 
 Official docs:
