@@ -14,6 +14,12 @@ curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
 export PATH="$HOME/.local/bin:$PATH"
 hermes --version
 hermes config migrate || true
+hermes config set approvals.mode smart
+awk '
+  /^approvals:/ { in_approvals = 1; next }
+  in_approvals && /^[^[:space:]]/ { exit }
+  in_approvals && $1 == "mode:" { print $2; exit }
+' ~/.hermes/config.yaml
 hermes doctor
 ```
 
@@ -27,6 +33,26 @@ The helper script is safe for a base install and intentionally leaves the gatewa
 ```bash
 SSH_TARGET=ubuntu@openclaw ./scripts/install-hermes-base.sh
 ```
+
+## Approval Mode
+
+Official security docs: https://hermes-agent.nousresearch.com/docs/user-guide/security
+
+Do not rely on interactive `hermes setup` for this workflow. The skill uses non-interactive
+server installs, so set the approval mode explicitly after config migration:
+
+```bash
+hermes config set approvals.mode smart
+awk '
+  /^approvals:/ { in_approvals = 1; next }
+  in_approvals && /^[^[:space:]]/ { exit }
+  in_approvals && $1 == "mode:" { print $2; exit }
+' ~/.hermes/config.yaml
+```
+
+`smart` is the recommended middle ground: Hermes can auto-approve low-risk flagged commands, deny
+genuinely dangerous commands, and escalate uncertain cases. Do not set `approvals.mode off` unless
+the user explicitly asks for a YOLO/sandboxed setup and understands the risk.
 
 Hermes does not ship with this delegation/coding-harness/documentation persona by default. This
 skill adds it because the live setup needed Hermes to be told explicitly to use `delegate_task`

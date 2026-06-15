@@ -38,6 +38,8 @@ hermes claw migrate --preset full --migrate-secrets --skill-conflict rename --ov
 
 After `--overwrite`, immediately re-test and restore Hermes-specific model settings if needed.
 OpenClaw model IDs and provider names do not always work unchanged in Hermes.
+Reapply `hermes config set approvals.mode smart` and verify `mode: smart` in the `approvals:`
+section of `~/.hermes/config.yaml`; migration or overwrite operations can replace config values.
 Also reapply the Hermes `SOUL.md` operating defaults from `references/hermes.md` if the migration
 overwrote the persona file. That block includes both the delegation rule and the coding-harness
 rule that routes substantial codebase work to Codex CLI, Claude Code, or the user's equivalent
@@ -136,8 +138,9 @@ Use secrets import only when the user is switching primary runtime, not when run
 
 - **User wants to evaluate:** install side-by-side, no secret migration, separate channels.
 - **User wants to switch OpenClaw -> Hermes:** backup OpenClaw, stop OpenClaw gateway, run Hermes
-  dry-run, then apply selected migration, verify Hermes models/channels. Explicitly set
-  `TELEGRAM_ALLOWED_USERS` and `SLACK_ALLOWED_USERS` in Hermes after migration.
+  dry-run, then apply selected migration, restore `approvals.mode smart`, verify Hermes
+  models/channels. Explicitly set `TELEGRAM_ALLOWED_USERS` and `SLACK_ALLOWED_USERS` in Hermes
+  after migration.
 - **User wants to switch Hermes -> OpenClaw:** backup Hermes, use fresh OpenClaw when possible,
   run OpenClaw dry-run, then apply selected migration, verify OpenClaw doctor/models/channels.
 - **User wants both long-term:** do not migrate channel secrets. Duplicate durable docs/memory only

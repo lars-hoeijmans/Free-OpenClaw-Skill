@@ -124,6 +124,7 @@ Minimum completion criteria:
 
 - Hermes installed under `~/.hermes`.
 - Config migrated to the current schema.
+- `approvals.mode` explicitly set to `smart`; do not rely on interactive setup defaults.
 - `~/.hermes/SOUL.md` contains the skill-added delegation/coding-harness/documentation operating block; do not assume stock Hermes ships this behavior.
 - At least one provider/model generates `PONG`.
 - If running as the live assistant, `hermes-gateway.service` is installed, enabled, and verified.
@@ -166,7 +167,8 @@ Before hand-off, verify the selected stack:
 - Public SSH is blocked; Tailscale SSH works.
 - Runtime health command passes:
   - OpenClaw: `openclaw gateway health`, `openclaw channels status --probe`.
-  - Hermes: `hermes doctor`, `hermes status`, `hermes gateway status` if gateway is enabled.
+- Hermes: `hermes doctor`, `hermes status`, `hermes gateway status` if gateway is enabled.
+- Hermes approval mode is `smart` when Hermes is selected.
 - Primary and fallback models both return `PONG`.
 - If using OpenCode Zen, the default was selected from the live catalog: latest tested free Mimo,
   or latest tested free DeepSeek if no free Mimo works.

@@ -27,6 +27,16 @@ export PATH="$HOME/.local/bin:$PATH"
 
 hermes --version
 hermes config migrate || true
+hermes config set approvals.mode smart
+APPROVAL_MODE="$(awk '
+  /^approvals:/ { in_approvals = 1; next }
+  in_approvals && /^[^[:space:]]/ { exit }
+  in_approvals && $1 == "mode:" { print $2; exit }
+' "$HOME/.hermes/config.yaml")"
+if [[ "$APPROVAL_MODE" != "smart" ]]; then
+  echo "Expected Hermes approvals.mode to be smart, got: ${APPROVAL_MODE:-<empty>}" >&2
+  exit 1
+fi
 hermes doctor || true
 
 HERMES_SOUL="$HOME/.hermes/SOUL.md"
