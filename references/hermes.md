@@ -28,8 +28,12 @@ The helper script is safe for a base install and intentionally leaves the gatewa
 SSH_TARGET=ubuntu@openclaw ./scripts/install-hermes-base.sh
 ```
 
-The helper also appends this idempotent defaults block to `~/.hermes/SOUL.md`. Do not overwrite
-the user's full persona; add the block if missing:
+Hermes does not ship with this delegation/documentation persona by default. This skill adds it
+because the live setup needed Hermes to be told explicitly to use `delegate_task` for longer
+independent workstreams while keeping quick tasks inline.
+
+The helper appends this idempotent defaults block to `~/.hermes/SOUL.md`. Do not overwrite the
+user's full persona; add the block if missing:
 
 ```markdown
 <!-- BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS -->

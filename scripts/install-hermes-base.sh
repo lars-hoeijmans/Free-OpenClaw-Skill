@@ -33,6 +33,8 @@ HERMES_SOUL="$HOME/.hermes/SOUL.md"
 mkdir -p "$(dirname "$HERMES_SOUL")"
 touch "$HERMES_SOUL"
 
+# Hermes does not add these operating defaults by itself. This skill adds them so new installs
+# inherit the delegation/documentation behavior validated in the live setup.
 if ! grep -q 'BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS' "$HERMES_SOUL"; then
   cat >> "$HERMES_SOUL" <<'SOUL'
 
