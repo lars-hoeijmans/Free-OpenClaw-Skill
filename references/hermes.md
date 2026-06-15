@@ -28,12 +28,14 @@ The helper script is safe for a base install and intentionally leaves the gatewa
 SSH_TARGET=ubuntu@openclaw ./scripts/install-hermes-base.sh
 ```
 
-Hermes does not ship with this delegation/documentation persona by default. This skill adds it
-because the live setup needed Hermes to be told explicitly to use `delegate_task` for longer
-independent workstreams while keeping quick tasks inline.
+Hermes does not ship with this delegation/coding-harness/documentation persona by default. This
+skill adds it because the live setup needed Hermes to be told explicitly to use `delegate_task`
+for longer independent workstreams, route coding work through Codex/Claude Code-style harnesses,
+and keep quick tasks inline.
 
-The helper appends this idempotent defaults block to `~/.hermes/SOUL.md`. Do not overwrite the
-user's full persona; add the block if missing:
+The helper appends this idempotent defaults block to `~/.hermes/SOUL.md`, or upgrades an older
+skill-added block if it is missing the coding-harness rule. Do not overwrite the user's full
+persona; add or replace only the marked block:
 
 ```markdown
 <!-- BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS -->
@@ -48,6 +50,14 @@ Run independent workstreams in parallel when useful, then summarize each result 
 session with status, evidence, file paths, commands run, and remaining blockers. For truly durable
 background work, use explicit terminal/systemd/cron jobs and document how to inspect, stop, and
 clean them up.
+
+**Route coding tasks to coding harnesses.** For repository/codebase work such as building apps,
+implementing features, debugging, refactoring, tests, reviews, QA automation, or PR preparation,
+delegate to a specialized coding harness by default. Prefer Codex CLI when available; use Claude
+Code or the user's configured coding agent as the fallback. Keep Hermes as the coordinator: clarify
+the goal, launch/monitor the coding harness with the right repo context, then summarize diffs,
+tests, risks, and next steps back to the user. Do not do heavy coding inline unless no harness is
+available or the change is clearly trivial.
 
 Whenever you install or enable a new capability, record exact commands, paths, usage notes,
 verification, and cleanup in the workspace notes so future sessions do not rediscover the setup.
@@ -171,7 +181,9 @@ Known cutover lessons:
 Official delegation docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
 
 Hermes has native `delegate_task` subagents. Do not force an "orchestrator-only" system prompt by
-default. Instead, make the `SOUL.md` operating defaults above part of every Hermes install.
+default. Instead, make the `SOUL.md` operating defaults above part of every Hermes install. For
+coding tasks, the skill-added default is stronger: Hermes should coordinate and delegate substantial
+codebase work to Codex CLI, Claude Code, or the user's equivalent coding harness whenever available.
 
 Defaults from the docs:
 

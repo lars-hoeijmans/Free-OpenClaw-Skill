@@ -121,15 +121,16 @@ Minimum completion criteria:
 
 - Hermes installed under `~/.hermes`.
 - Config migrated to the current schema.
-- `~/.hermes/SOUL.md` contains the skill-added delegation/documentation operating block; do not assume stock Hermes ships this behavior.
+- `~/.hermes/SOUL.md` contains the skill-added delegation/coding-harness/documentation operating block; do not assume stock Hermes ships this behavior.
 - At least one provider/model generates `PONG`.
 - If running as the live assistant, `hermes-gateway.service` is installed, enabled, and verified.
 - At least one separate channel identity is owner-locked and working.
 
 Hermes has native `delegate_task` subagents with configurable parallelism, but stock Hermes may not
 use them the way this workflow expects unless told to. This skill adds a `SOUL.md` block that makes
-Hermes delegate longer independent workstreams while keeping quick tasks inline. Do not force a
-strict "orchestrator-only" persona unless the user explicitly wants it.
+Hermes delegate longer independent workstreams while keeping quick tasks inline, and route
+substantial coding work to Codex CLI, Claude Code, or the user's configured coding harness when
+available. Do not force a strict "orchestrator-only" persona unless the user explicitly wants it.
 
 ## Both Side-by-Side
 

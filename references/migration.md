@@ -39,7 +39,9 @@ hermes claw migrate --preset full --migrate-secrets --skill-conflict rename --ov
 After `--overwrite`, immediately re-test and restore Hermes-specific model settings if needed.
 OpenClaw model IDs and provider names do not always work unchanged in Hermes.
 Also reapply the Hermes `SOUL.md` operating defaults from `references/hermes.md` if the migration
-overwrote the persona file.
+overwrote the persona file. That block includes both the delegation rule and the coding-harness
+rule that routes substantial codebase work to Codex CLI, Claude Code, or the user's equivalent
+coding agent.
 
 What the Hermes docs say can migrate:
 
