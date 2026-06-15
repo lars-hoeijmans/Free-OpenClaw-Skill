@@ -12,7 +12,7 @@ An agent skill that sets up a private, phone-controlled self-hosted assistant on
 No new subscriptions required — the whole stack stands on free tiers:
 
 - 🆓 **The server** — Oracle Cloud's **Always Free** ARM VM (`VM.Standard.A1.Flex`). The skill's quota + budget guardrails keep real spend at **€0**, even after the PAYG upgrade that's sometimes needed to get past Oracle's capacity limits.
-- 🆓 **The brains** — free **OpenCode Zen** models ($0), fetched/tested live at setup so you always get a working current free model.
+- 🆓 **The brains** — free **OpenCode Zen** models ($0), fetched/tested live at setup. The skill prefers the newest working free Mimo model, then falls back to the newest working free DeepSeek model if needed.
 - ♻️ **Already paying for ChatGPT (or Claude)?** Plug your existing subscription in via OAuth and use it too — no new spend, just extra model muscle when you want it.
 
 Floor cost: **$0/month.** Bring a paid model only if you already have one.

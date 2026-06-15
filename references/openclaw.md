@@ -77,15 +77,13 @@ openclaw models auth paste-api-key --provider <id>
 OpenCode Zen custom provider:
 
 ```bash
-curl -s https://opencode.ai/zen/v1/models | jq -r '.data[].id' | grep -E '\-free$|^big-pickle$'
-openclaw config set models.providers.opencodezen \
-  '{"baseUrl":"https://opencode.ai/zen/v1","api":"openai-completions","apiKey":"${OPENCODE_ZEN_API_KEY}","models":[{"id":"<free-id>","name":"<free-id>"}]}' \
-  --strict-json --merge
-openclaw config set env.OPENCODE_ZEN_API_KEY '<entered-by-human>'
+curl -fsSL https://opencode.ai/zen/v1/models | jq -r '.data[].id' | grep -Ei '(-free$|^big-pickle$)'
 ```
 
-The OpenCode Zen catalog changes. Fetch it live and only allowlist tested $0 models. Catalog
-presence does not mean the model actually works for the account.
+Use `references/opencode-zen.md` to fetch the live catalog, choose the latest working free Mimo
+model, register the free candidates in the OpenClaw custom provider, and fall back to the latest
+working free DeepSeek model only if no free Mimo works. Catalog presence does not mean the model
+actually works for the account.
 
 Test every model:
 
@@ -96,9 +94,11 @@ openclaw infer model run --model <provider/model> --prompt 'Reply exactly: PONG'
 Set allowlist and default:
 
 ```bash
-openclaw config set agents.defaults.models '{"opencodezen/<free-id>":{},"openai/gpt-5.5":{}}' --strict-json --replace
-openclaw models set opencodezen/<free-id>
-openclaw models fallbacks add openai/gpt-5.5
+openclaw config set agents.defaults.models \
+  '{"opencodezen/'"$RECOMMENDED_OPENCODE_ZEN_MODEL"'":{},"openai/gpt-5.5":{}}' \
+  --strict-json --replace
+openclaw models set "opencodezen/$RECOMMENDED_OPENCODE_ZEN_MODEL"
+openclaw models fallbacks add openai/gpt-5.5   # only after this fallback is tested and accepted
 openclaw gateway restart
 ```
 
@@ -213,4 +213,3 @@ Tell the user explicitly that OpenClaw can now extend itself:
 
 > "Ask it to install Codex CLI, Claude Code, GitHub CLI, Playwright, ffmpeg, transcription, or
 > another MCP/channel. Keep destructive actions approval-gated."
-

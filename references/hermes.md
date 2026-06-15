@@ -84,26 +84,27 @@ docs or chat:
 printf '\nOPENCODE_ZEN_API_KEY=%s\n' '<entered-by-human>' >> ~/.hermes/.env
 chmod 600 ~/.hermes/.env
 hermes config set model.provider opencode-zen
-hermes config set model.default <tested-free-model-id>
 hermes config set model.base_url https://opencode.ai/zen/v1
 hermes config set model.api_mode openai_chat
 ```
 
-Test before persisting:
+Use `references/opencode-zen.md` to fetch the live catalog, choose the latest working free Mimo
+model, and fall back to the latest working free DeepSeek model only if no free Mimo works. Then
+persist the tested recommendation:
 
 ```bash
-hermes -z "Reply exactly: PONG" --provider opencode-zen --model <model-id>
+hermes config set model.default "$RECOMMENDED_OPENCODE_ZEN_MODEL"
+hermes -z "Reply exactly: PONG" --provider opencode-zen --model "$RECOMMENDED_OPENCODE_ZEN_MODEL"
 ```
 
-Known lesson from a real Oracle A1 install: `mimo-v2.5-free` and `nemotron-3-ultra-free` worked
-in Hermes; `deepseek-v4-flash` did not produce a final response there. Treat all model IDs as
-point-in-time examples and test live.
+Known lesson from a real Oracle A1 install: Mimo worked well as the Hermes default. DeepSeek was
+available in the catalog, but one non-free DeepSeek ID did not produce a final response there.
+Treat all model IDs as point-in-time examples and test live.
 
-Fallback example:
+Fallback example, after selecting a second tested free model or a tested OpenAI OAuth model:
 
 ```bash
-hermes config set model.default mimo-v2.5-free
-hermes config set fallback_models '["nemotron-3-ultra-free"]'
+hermes config set fallback_models '["<tested-fallback-model-id>"]'
 hermes -z "Reply exactly: PONG"
 ```
 

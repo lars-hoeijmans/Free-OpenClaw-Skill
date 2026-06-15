@@ -26,6 +26,8 @@ Recommended choice prompts:
 2. **Oracle path:** `Create new server`, `Use existing server`, or `Audit only`.
 3. **VM size:** `2 OCPU / 12 GB`, `4 OCPU / 23 GB`, or `4 OCPU / 24 GB`.
 4. **Model setup:** `OpenCode Zen free only`, `OpenCode Zen + ChatGPT OAuth`, or `Bring API key`.
+   For OpenCode Zen, recommend the latest working free Mimo model; if none works, fall back to
+   the latest working free DeepSeek model.
 5. **Channels:** `Telegram`, `Slack`, `Both`, or `Skip for now`.
 6. **Migration:** `Fresh install`, `Migrate OpenClaw -> Hermes`, `Migrate Hermes -> OpenClaw`, or `Side-by-side only`.
 
@@ -98,6 +100,7 @@ Then follow the matching reference:
 
 - `references/openclaw.md` for OpenClaw.
 - `references/hermes.md` for Hermes.
+- `references/opencode-zen.md` for free OpenCode Zen model discovery and default selection.
 - `references/migration.md` when switching between runtimes or importing state.
 
 ## OpenClaw Path
@@ -165,6 +168,8 @@ Before hand-off, verify the selected stack:
   - OpenClaw: `openclaw gateway health`, `openclaw channels status --probe`.
   - Hermes: `hermes doctor`, `hermes status`, `hermes gateway status` if gateway is enabled.
 - Primary and fallback models both return `PONG`.
+- If using OpenCode Zen, the default was selected from the live catalog: latest tested free Mimo,
+  or latest tested free DeepSeek if no free Mimo works.
 - Channel access is owner-locked.
 - For migrations, outbound delivery and inbound user-triggered replies work on every moved channel.
 - No secrets were written into project docs or chat.
@@ -191,5 +196,6 @@ durable.
 - `references/oracle-guardrails.md` - PAYG guardrails and capacity handling.
 - `references/openclaw.md` - OpenClaw install, models, Telegram, Slack, media, transcription.
 - `references/hermes.md` - Hermes install, models, gateway, channels, delegation.
+- `references/opencode-zen.md` - OpenCode Zen free model selection for OpenClaw and Hermes.
 - `references/migration.md` - OpenClaw <-> Hermes migration.
 - `references/runbook.md` - older compact Oracle/OpenClaw sequence and troubleshooting.
