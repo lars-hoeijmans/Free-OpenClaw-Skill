@@ -27,6 +27,18 @@ Full migration including API keys/secrets requires explicit opt-in:
 hermes claw migrate --preset full --migrate-secrets --yes
 ```
 
+If Hermes already has its own `SOUL.md` or model config, the migration may refuse to apply until
+conflicts are resolved. The safe pattern is:
+
+```bash
+hermes claw migrate --dry-run --preset full --migrate-secrets --skill-conflict rename
+# If conflicts are expected and backups exist:
+hermes claw migrate --preset full --migrate-secrets --skill-conflict rename --overwrite --yes
+```
+
+After `--overwrite`, immediately re-test and restore Hermes-specific model settings if needed.
+OpenClaw model IDs and provider names do not always work unchanged in Hermes.
+
 What the Hermes docs say can migrate:
 
 - persona, memory, user profile, daily memory files;
@@ -103,9 +115,9 @@ Use secrets import only when the user is switching primary runtime, not when run
 
 - **User wants to evaluate:** install side-by-side, no secret migration, separate channels.
 - **User wants to switch OpenClaw -> Hermes:** backup OpenClaw, stop OpenClaw gateway, run Hermes
-  dry-run, then apply selected migration, verify Hermes models/channels.
+  dry-run, then apply selected migration, verify Hermes models/channels. Explicitly set
+  `TELEGRAM_ALLOWED_USERS` and `SLACK_ALLOWED_USERS` in Hermes after migration.
 - **User wants to switch Hermes -> OpenClaw:** backup Hermes, use fresh OpenClaw when possible,
   run OpenClaw dry-run, then apply selected migration, verify OpenClaw doctor/models/channels.
 - **User wants both long-term:** do not migrate channel secrets. Duplicate durable docs/memory only
   if the user wants similar personalities.
-

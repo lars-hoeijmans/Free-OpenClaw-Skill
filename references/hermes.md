@@ -48,7 +48,9 @@ docs or chat:
 printf '\nOPENCODE_ZEN_API_KEY=%s\n' '<entered-by-human>' >> ~/.hermes/.env
 chmod 600 ~/.hermes/.env
 hermes config set model.provider opencode-zen
-hermes config set model.name <tested-free-model-id>
+hermes config set model.default <tested-free-model-id>
+hermes config set model.base_url https://opencode.ai/zen/v1
+hermes config set model.api_mode openai_chat
 ```
 
 Test before persisting:
@@ -64,8 +66,8 @@ point-in-time examples and test live.
 Fallback example:
 
 ```bash
-hermes config set model.name mimo-v2.5-free
-hermes config set model.fallbacks '["opencode-zen/nemotron-3-ultra-free"]'
+hermes config set model.default mimo-v2.5-free
+hermes config set fallback_models '["nemotron-3-ultra-free"]'
 hermes -z "Reply exactly: PONG"
 ```
 
@@ -126,6 +128,18 @@ Use separate identities if OpenClaw is still live:
 After adding a channel, owner-lock it before restart/hand-off. Use the Hermes channel docs for the
 current exact keys, then verify with `hermes gateway status` and an end-to-end message.
 
+Known cutover lessons:
+
+- `TELEGRAM_ALLOWED_USERS` expects bare numeric Telegram user IDs, for example `123456789`.
+- `SLACK_ALLOWED_USERS` expects bare Slack member IDs, for example `U01ABC2DEF3`, not
+  OpenClaw-style `slack:U01ABC2DEF3`.
+- Keep `GATEWAY_ALLOW_ALL_USERS=false` unless the user explicitly accepts a public bot.
+- Hermes can test outbound delivery with `hermes send --to telegram:<chat_id> "message"` and
+  `hermes send --to slack:<channel_id> "message"` after the gateway has discovered or been given
+  a target.
+- Slack `/claudia` is an OpenClaw-era custom command. Hermes uses DMs, mentions, `/hermes`, and
+  Hermes' generated native slash commands unless the Slack app manifest is updated.
+
 ## Delegation
 
 Official delegation docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
@@ -169,4 +183,3 @@ Tell the user Hermes can also grow itself:
 
 > "From here, message Hermes and ask it to install Codex CLI, Claude Code, GitHub CLI, Playwright,
 > ffmpeg, voice tooling, or MCP servers. Let it save working recipes into its own notes/skills."
-
