@@ -1,4 +1,4 @@
 interface:
-  display_name: "OpenClaw Oracle Setup"
-  short_description: "Set up guarded OpenClaw on Oracle A1"
-  default_prompt: "Use $openclaw-oracle-setup to provision a guarded Oracle A1 OpenClaw server with Tailscale access."
+  display_name: "Free Oracle Agent Setup"
+  short_description: "Set up OpenClaw or Hermes on guarded Oracle A1"
+  default_prompt: "Use $openclaw-oracle-setup to provision a guarded Oracle A1 self-hosted agent server with Tailscale access. Ask me whether I want OpenClaw, Hermes, or both."
