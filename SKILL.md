@@ -22,7 +22,7 @@ recommended default. Do not dump a checklist and ask the user to figure it out.
 
 Recommended choice prompts:
 
-1. **Agent stack:** `OpenClaw`, `Hermes`, or `Both`.
+1. **Agent stack:** `Hermes (Recommended)`, `OpenClaw`, or `Both`.
 2. **Oracle path:** `Create new server`, `Use existing server`, or `Audit only`.
 3. **VM size:** `2 OCPU / 12 GB`, `4 OCPU / 23 GB`, or `4 OCPU / 24 GB`.
 4. **Model setup:** `OpenCode Zen free only`, `OpenCode Zen + ChatGPT OAuth`, or `Bring API key`.
@@ -87,10 +87,10 @@ Always do the shared server layer first, before choosing or installing the agent
 
 Use a choice question after the server is reachable:
 
-- **OpenClaw**: best if the user wants the setup this skill was originally built around, mature
-  phone-channel workflows, and the "ask the assistant to install its own tools" hand-off.
-- **Hermes**: best if the user wants Nous/Hermes' newer agent stack, native delegation, and a
-  fresh evaluation of the supposedly more stable runtime.
+- **Hermes (Recommended)**: best default for new installs if the user wants Nous/Hermes' newer
+  agent stack, native delegation, and the runtime this workflow ultimately promoted as live.
+- **OpenClaw**: best if the user specifically wants the original OpenClaw workflow, mature
+  phone-channel workflows, or an OpenClaw-compatible setup before any Hermes evaluation.
 - **Both**: best for comparison. Install both side-by-side, but never share live channel tokens
   between them. Give each runtime separate Telegram/Slack identities.
 
