@@ -68,6 +68,16 @@ the goal, launch/monitor the coding harness with the right repo context, then su
 tests, risks, and next steps back to the user. Do not do heavy coding inline unless no harness is
 available or the change is clearly trivial.
 
+**Launch Codex with full workspace access.** When using Codex CLI as the coding harness on this
+server, run it with `--sandbox danger-full-access` by default, for example:
+`codex exec --sandbox danger-full-access "<focused task>"`. The Oracle/Tailscale server is the
+outer trust boundary for this setup; Codex's stricter default sandbox can prevent the coding
+harness from reading files, installing dependencies, running tests, or editing the repo it was
+asked to handle. Keep safety by running Codex from the target repo/workspace, giving it a focused
+task, and reviewing diffs/tests before any push, deploy, or external action. Do not use
+`--dangerously-bypass-approvals-and-sandbox` unless the user explicitly asks and understands the
+risk.
+
 Whenever you install or enable a new capability, record exact commands, paths, usage notes,
 verification, and cleanup in the workspace notes so future sessions do not rediscover the setup.
 <!-- END FREE-ORACLE-AGENT-HERMES-DEFAULTS -->
@@ -77,7 +87,7 @@ if ! grep -q 'BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS' "$HERMES_SOUL"; then
   printf '\n' >> "$HERMES_SOUL"
   cat "$DEFAULTS_BLOCK" >> "$HERMES_SOUL"
   echo "Hermes SOUL.md operating defaults added."
-elif ! grep -q 'Route coding tasks to coding harnesses' "$HERMES_SOUL"; then
+elif ! grep -q -- '--sandbox danger-full-access' "$HERMES_SOUL"; then
   TMP_SOUL="$(mktemp)"
   awk -v block_file="$DEFAULTS_BLOCK" '
     BEGIN {

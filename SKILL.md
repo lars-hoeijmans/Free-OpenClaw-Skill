@@ -134,7 +134,10 @@ Hermes has native `delegate_task` subagents with configurable parallelism, but s
 use them the way this workflow expects unless told to. This skill adds a `SOUL.md` block that makes
 Hermes delegate longer independent workstreams while keeping quick tasks inline, and route
 substantial coding work to Codex CLI, Claude Code, or the user's configured coding harness when
-available. Do not force a strict "orchestrator-only" persona unless the user explicitly wants it.
+available. When using Codex CLI from Hermes, the skill-added default is
+`codex exec --sandbox danger-full-access ...` so Codex can actually access the repo/workspace it is
+asked to modify. Do not force a strict "orchestrator-only" persona unless the user explicitly wants
+it.
 
 ## Both Side-by-Side
 

@@ -41,9 +41,9 @@ OpenClaw model IDs and provider names do not always work unchanged in Hermes.
 Reapply `hermes config set approvals.mode smart` and verify `mode: smart` in the `approvals:`
 section of `~/.hermes/config.yaml`; migration or overwrite operations can replace config values.
 Also reapply the Hermes `SOUL.md` operating defaults from `references/hermes.md` if the migration
-overwrote the persona file. That block includes both the delegation rule and the coding-harness
-rule that routes substantial codebase work to Codex CLI, Claude Code, or the user's equivalent
-coding agent.
+overwrote the persona file. That block includes the delegation rule, the coding-harness rule, and
+the Codex launch rule requiring `codex exec --sandbox danger-full-access ...` when Codex CLI is the
+coding harness.
 
 What the Hermes docs say can migrate:
 
