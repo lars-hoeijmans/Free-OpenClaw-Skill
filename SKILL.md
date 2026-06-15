@@ -121,14 +121,14 @@ Minimum completion criteria:
 
 - Hermes installed under `~/.hermes`.
 - Config migrated to the current schema.
+- `~/.hermes/SOUL.md` contains the default delegation/documentation operating block.
 - At least one provider/model generates `PONG`.
 - If running as the live assistant, `hermes-gateway.service` is installed, enabled, and verified.
 - At least one separate channel identity is owner-locked and working.
 
 Hermes has native `delegate_task` subagents with configurable parallelism, so do not force an
-"orchestrator-only" persona unless the user explicitly wants it. Prefer a light instruction:
-"Use delegation for independent long-running/research/coding workstreams and summarize results
-back to the main session."
+"orchestrator-only" persona unless the user explicitly wants it. The default `SOUL.md` block should
+make Hermes delegate longer independent workstreams while keeping quick tasks inline.
 
 ## Both Side-by-Side
 

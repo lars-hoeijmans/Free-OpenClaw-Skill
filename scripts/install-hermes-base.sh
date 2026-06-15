@@ -29,6 +29,35 @@ hermes --version
 hermes config migrate || true
 hermes doctor || true
 
+HERMES_SOUL="$HOME/.hermes/SOUL.md"
+mkdir -p "$(dirname "$HERMES_SOUL")"
+touch "$HERMES_SOUL"
+
+if ! grep -q 'BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS' "$HERMES_SOUL"; then
+  cat >> "$HERMES_SOUL" <<'SOUL'
+
+<!-- BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS -->
+## Operating Defaults
+
+**Delegate longer tasks to sub-agents.** When the user asks for research, analysis, multi-step
+builds, QA, debugging, setup, or anything that would take more than a few tool calls, use Hermes
+`delegate_task` sub-agents so the main conversation stays the coordinating surface. Handle quick
+questions, simple lookups, and small edits directly.
+
+Run independent workstreams in parallel when useful, then summarize each result back to the main
+session with status, evidence, file paths, commands run, and remaining blockers. For truly durable
+background work, use explicit terminal/systemd/cron jobs and document how to inspect, stop, and
+clean them up.
+
+Whenever you install or enable a new capability, record exact commands, paths, usage notes,
+verification, and cleanup in the workspace notes so future sessions do not rediscover the setup.
+<!-- END FREE-ORACLE-AGENT-HERMES-DEFAULTS -->
+SOUL
+  echo "Hermes SOUL.md operating defaults added."
+else
+  echo "Hermes SOUL.md operating defaults already present."
+fi
+
 # Install the gateway unit for later evaluation, but keep it stopped/disabled until separate
 # channel identities are configured. This avoids fighting a live OpenClaw gateway for tokens.
 if hermes gateway status >/dev/null 2>&1; then

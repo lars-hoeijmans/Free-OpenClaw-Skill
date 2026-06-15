@@ -28,6 +28,28 @@ The helper script is safe for a base install and intentionally leaves the gatewa
 SSH_TARGET=ubuntu@openclaw ./scripts/install-hermes-base.sh
 ```
 
+The helper also appends this idempotent defaults block to `~/.hermes/SOUL.md`. Do not overwrite
+the user's full persona; add the block if missing:
+
+```markdown
+<!-- BEGIN FREE-ORACLE-AGENT-HERMES-DEFAULTS -->
+## Operating Defaults
+
+**Delegate longer tasks to sub-agents.** When the user asks for research, analysis, multi-step
+builds, QA, debugging, setup, or anything that would take more than a few tool calls, use Hermes
+`delegate_task` sub-agents so the main conversation stays the coordinating surface. Handle quick
+questions, simple lookups, and small edits directly.
+
+Run independent workstreams in parallel when useful, then summarize each result back to the main
+session with status, evidence, file paths, commands run, and remaining blockers. For truly durable
+background work, use explicit terminal/systemd/cron jobs and document how to inspect, stop, and
+clean them up.
+
+Whenever you install or enable a new capability, record exact commands, paths, usage notes,
+verification, and cleanup in the workspace notes so future sessions do not rediscover the setup.
+<!-- END FREE-ORACLE-AGENT-HERMES-DEFAULTS -->
+```
+
 ## Models
 
 Official provider docs: https://hermes-agent.nousresearch.com/docs/integrations/providers
@@ -145,10 +167,7 @@ Known cutover lessons:
 Official delegation docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
 
 Hermes has native `delegate_task` subagents. Do not force an "orchestrator-only" system prompt by
-default. Use a light instruction instead:
-
-> Use `delegate_task` for independent research, coding, QA, or long-running workstreams, then
-> summarize results back to the main session.
+default. Instead, make the `SOUL.md` operating defaults above part of every Hermes install.
 
 Defaults from the docs:
 
