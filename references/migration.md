@@ -78,6 +78,9 @@ After any migration that moves live Telegram, Slack, or other channel tokens:
 7. Explain changed channel UX before hand-off. For example, OpenClaw's custom Slack `/claudia`
    command does not automatically become a Hermes command; use DM, mention, `/hermes`, or update
    the Slack app manifest.
+8. If Hermes Slack shows "No home channel is set", tell the user to type `!sethome` in the target
+   Slack DM/channel, not `/hermes sethome`; Slack can intercept slash-prefixed text before Hermes
+   sees it.
 
 Logs and outbound sends prove the transport is connected. The inbound user-triggered ping proves
 the user can actually drive the assistant.

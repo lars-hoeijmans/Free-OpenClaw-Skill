@@ -213,6 +213,35 @@ Known cutover lessons:
 - Slack `/claudia` is an OpenClaw-era custom command. Hermes uses DMs, mentions, `/hermes`, and
   Hermes' generated native slash commands unless the Slack app manifest is updated.
 
+### Slack Home Channel
+
+Hermes may tell Slack users to set a home channel with `/hermes sethome`. In Slack, slash-prefixed
+text is intercepted by Slack before Hermes sees it. If the Slack app has not registered that exact
+native slash command, Slack replies that it is not supported.
+
+Use Hermes' Slack-safe command form instead:
+
+```text
+!sethome
+```
+
+Tell the user to type `!sethome` in the DM or channel where Hermes should deliver cron results and
+cross-platform messages. Hermes' Slack adapter treats `!` as the safe prefix for known commands in
+Slack contexts.
+
+If chat setup fails or the user needs a non-interactive setup, prefer the supported config route
+after confirming the installed Hermes version accepts the key:
+
+```bash
+hermes config set home_channel.slack "<slack-channel-or-dm-id>"
+hermes gateway restart || systemctl --user restart hermes-gateway.service
+```
+
+Do not patch `~/.hermes/hermes-agent/gateway/run.py` by default just to change the notice text from
+`/hermes sethome` to `!sethome`. That is version-specific source mutation and can be overwritten by
+Hermes updates. Only use a source patch as a last resort, with explicit user approval, after backing
+up the file and verifying the exact block still matches the installed Hermes version.
+
 ## Delegation
 
 Official delegation docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
