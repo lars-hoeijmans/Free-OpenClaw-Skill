@@ -25,9 +25,13 @@ Recommended choice prompts:
 1. **Agent stack:** `Hermes (Recommended)`, `OpenClaw`, or `Both`.
 2. **Oracle path:** `Create new server`, `Use existing server`, or `Audit only`.
 3. **VM size:** `2 OCPU / 12 GB`, `4 OCPU / 23 GB`, or `4 OCPU / 24 GB`.
-4. **Model setup:** `OpenCode Zen free only`, `OpenCode Zen + ChatGPT OAuth`, or `Bring API key`.
-   For OpenCode Zen, recommend the latest working free Mimo model; if none works, fall back to
-   the latest working free DeepSeek model.
+4. **Model setup:** `OpenAI/ChatGPT OAuth only (Recommended for sensitive data)`,
+   `OpenCode Zen free models`, `OpenCode Zen + ChatGPT OAuth`, or `Bring API key`.
+   Before enabling OpenCode Zen free models, clearly warn that several free/trial Zen models may
+   retain prompts/outputs or use them to improve/train models. For OpenCode Zen, recommend the
+   latest working free Mimo model; if none works, fall back to the latest working free DeepSeek
+   model. For OpenAI/ChatGPT OAuth, recommend the latest working mini model rather than a
+   hardcoded flagship model.
 5. **Channels:** `Telegram`, `Slack`, `Both`, or `Skip for now`.
 6. **Migration:** `Fresh install`, `Migrate OpenClaw -> Hermes`, `Migrate Hermes -> OpenClaw`, or `Side-by-side only`.
 
@@ -101,6 +105,8 @@ Then follow the matching reference:
 - `references/openclaw.md` for OpenClaw.
 - `references/hermes.md` for Hermes.
 - `references/opencode-zen.md` for free OpenCode Zen model discovery and default selection.
+- `references/openai-codex.md` for OpenAI/ChatGPT OAuth privacy posture and latest-mini model
+  selection.
 - `references/migration.md` when switching between runtimes or importing state.
 
 ## OpenClaw Path
@@ -175,6 +181,10 @@ Before hand-off, verify the selected stack:
 - Primary and fallback models both return `PONG`.
 - If using OpenCode Zen, the default was selected from the live catalog: latest tested free Mimo,
   or latest tested free DeepSeek if no free Mimo works.
+- If using OpenCode Zen free models, the user was explicitly warned about free-model data-use
+  exceptions before enabling them.
+- If using OpenAI/ChatGPT OAuth, the default is the latest tested mini model exposed to that
+  account, not a hardcoded flagship model.
 - Channel access is owner-locked.
 - For migrations, outbound delivery and inbound user-triggered replies work on every moved channel.
 - No secrets were written into project docs or chat.
@@ -202,5 +212,6 @@ durable.
 - `references/openclaw.md` - OpenClaw install, models, Telegram, Slack, media, transcription.
 - `references/hermes.md` - Hermes install, models, gateway, channels, delegation.
 - `references/opencode-zen.md` - OpenCode Zen free model selection for OpenClaw and Hermes.
+- `references/openai-codex.md` - OpenAI/ChatGPT OAuth privacy posture and mini-model defaults.
 - `references/migration.md` - OpenClaw <-> Hermes migration.
 - `references/runbook.md` - older compact Oracle/OpenClaw sequence and troubleshooting.

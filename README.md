@@ -12,8 +12,8 @@ An agent skill that sets up a private, phone-controlled self-hosted assistant on
 No new subscriptions required — the whole stack stands on free tiers:
 
 - 🆓 **The server** — Oracle Cloud's **Always Free** ARM VM (`VM.Standard.A1.Flex`). The skill's quota + budget guardrails keep real spend at **€0**, even after the PAYG upgrade that's sometimes needed to get past Oracle's capacity limits.
-- 🆓 **The brains** — free **OpenCode Zen** models ($0), fetched/tested live at setup. The skill prefers the newest working free Mimo model, then falls back to the newest working free DeepSeek model if needed.
-- ♻️ **Already paying for ChatGPT (or Claude)?** Plug your existing subscription in via OAuth and use it too — no new spend, just extra model muscle when you want it.
+- 🆓 **The brains** — free **OpenCode Zen** models ($0), fetched/tested live at setup. The skill prefers the newest working free Mimo model, then falls back to the newest working free DeepSeek model if needed. For sensitive work, it recommends OpenAI/ChatGPT OAuth instead because Zen free/trial models can have data-use exceptions.
+- ♻️ **Already paying for ChatGPT (or Claude)?** Plug your existing subscription in via OAuth and use it too — no new spend. For OpenAI/ChatGPT OAuth, the skill tests the latest available mini model and uses that as the default when it works.
 
 Floor cost: **$0/month.** Bring a paid model only if you already have one.
 
@@ -24,7 +24,7 @@ A pocket-sized AI ops assistant that's actually *yours*:
 - 🖥️ **A free Oracle ARM server** (`VM.Standard.A1.Flex`), provisioned by CLI with real cost guardrails.
 - 🔒 **Private by default** — bound to loopback, reachable only over your [Tailscale](https://tailscale.com) network. The public internet can't see it.
 - 🤖 **Your chosen runtime** — OpenClaw, Hermes, or both side-by-side for comparison.
-- 🧠 **A tested model setup** — free OpenCode Zen first, with optional ChatGPT/Codex OAuth if you already have it.
+- 🧠 **A tested model setup** — OpenAI/ChatGPT OAuth for sensitive work with the latest tested mini model by default, or free OpenCode Zen for non-sensitive work after a clear data-use warning.
 - 📱 **Telegram + Slack control** — text it from anywhere, no VPN. Locked to *you*.
 - 🎙️ **Voice notes → text** (optional, via faster-whisper) — you literally just ask it to set that up.
 - 🪄 **Self-extending** — once it's live, you ask it to install the Codex CLI, Claude Code, Playwright, `gh`… and it does. On its own server. By itself.
@@ -53,7 +53,7 @@ Written for an AI agent helping a human **anywhere** on the spectrum from *senio
 
 - An **Oracle Cloud** account — the skill walks you through signup and the PAYG upgrade, with guardrails that keep real spend at **€0** if you stay inside Always-Free limits.
 - A **Tailscale** account (free tier is plenty).
-- A **model** — free OpenCode Zen models out of the box; or a ChatGPT/Claude/Nous subscription via OAuth if you already have one.
+- A **model** — ChatGPT/OpenAI OAuth if you already have it, or free OpenCode Zen models for non-sensitive work after reviewing their data-use tradeoff.
 - **Telegram** on your phone (and/or a **Slack** workspace) if you want chat control.
 
 ## 🕳️ Potholes it walks you around

@@ -3,6 +3,23 @@
 Use this reference whenever the user chooses OpenCode Zen as a model provider for OpenClaw or
 Hermes. The catalog changes, so do not hardcode today's model IDs as permanent defaults.
 
+## Privacy and Data-Use Warning
+
+Before enabling OpenCode Zen free models, explicitly tell the user:
+
+> OpenCode Zen free/trial models may retain prompts and outputs or use them to improve/train
+> models, depending on the model and current provider terms. Do not send secrets, customer data,
+> private business context, personal data, or sensitive code unless you accept that tradeoff.
+
+OpenCode's current Zen docs say most providers follow zero-retention/no-training terms, but list
+exceptions for free/trial models including Mimo, DeepSeek, Big Pickle, North Mini Code, and
+Nemotron free endpoints. Treat free Zen as a great zero-cost path for non-sensitive work, not the
+recommended sensitive-data path.
+
+If the user wants the safer sensitive-work setup, recommend OpenAI/ChatGPT OAuth or another
+provider route with suitable data controls instead. For OpenAI/Codex, also have the user verify
+their own OpenAI Data Controls/Codex settings; do not promise privacy blindly.
+
 ## Policy
 
 Recommend models in this order:
@@ -126,8 +143,9 @@ openclaw infer model run \
 ```
 
 If the user also configured ChatGPT/OpenAI OAuth, it is reasonable to add a tested OpenAI model as
-a final fallback. If the user wants free-only, use another tested free OpenCode Zen model as
-fallback rather than a paid/API-key model.
+a final fallback only if the user accepts the privacy/cost tradeoff. If the user chose OpenAI-only
+for sensitive work, do not add free OpenCode Zen models as fallbacks. If the user wants free-only,
+use another tested free OpenCode Zen model as fallback rather than a paid/API-key model.
 
 ## Current Observed Examples
 

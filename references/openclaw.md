@@ -68,6 +68,10 @@ OpenAI OAuth:
 openclaw models auth login --provider openai
 ```
 
+For OpenAI/ChatGPT OAuth, use `references/openai-codex.md` to select the latest working mini model
+exposed to the user's account. Mini is the recommended default for speed/cost; do not hardcode
+`gpt-5.5` or another flagship model unless the user explicitly wants it and the test passes.
+
 API key/provider:
 
 ```bash
@@ -79,6 +83,10 @@ OpenCode Zen custom provider:
 ```bash
 curl -fsSL https://opencode.ai/zen/v1/models | jq -r '.data[].id' | grep -Ei '(-free$|^big-pickle$)'
 ```
+
+Before enabling OpenCode Zen free models, read `references/opencode-zen.md` and warn the user that
+free/trial Zen models may retain prompts/outputs or use them to improve/train models. For sensitive
+work, recommend OpenAI/ChatGPT OAuth or another route with suitable data controls instead.
 
 Use `references/opencode-zen.md` to fetch the live catalog, choose the latest working free Mimo
 model, register the free candidates in the OpenClaw custom provider, and fall back to the latest
@@ -95,10 +103,20 @@ Set allowlist and default:
 
 ```bash
 openclaw config set agents.defaults.models \
-  '{"opencodezen/'"$RECOMMENDED_OPENCODE_ZEN_MODEL"'":{},"openai/gpt-5.5":{}}' \
+  '{"opencodezen/'"$RECOMMENDED_OPENCODE_ZEN_MODEL"'":{}}' \
   --strict-json --replace
 openclaw models set "opencodezen/$RECOMMENDED_OPENCODE_ZEN_MODEL"
-openclaw models fallbacks add openai/gpt-5.5   # only after this fallback is tested and accepted
+openclaw gateway restart
+```
+
+If OpenAI OAuth is also configured and the user accepts it as a fallback, first select/test
+`RECOMMENDED_OPENAI_MODEL` with `references/openai-codex.md`, then add it:
+
+```bash
+openclaw config set agents.defaults.models \
+  '{"opencodezen/'"$RECOMMENDED_OPENCODE_ZEN_MODEL"'":{},"openai/'"$RECOMMENDED_OPENAI_MODEL"'":{}}' \
+  --strict-json --replace
+openclaw models fallbacks add "openai/$RECOMMENDED_OPENAI_MODEL"
 openclaw gateway restart
 ```
 

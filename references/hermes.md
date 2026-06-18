@@ -106,12 +106,17 @@ Official provider docs: https://hermes-agent.nousresearch.com/docs/integrations/
 
 Ask the user which model route they want:
 
-- OpenCode Zen free models.
-- OpenAI Codex / ChatGPT OAuth.
+- OpenAI Codex / ChatGPT OAuth. Recommended for sensitive/private work after the user verifies
+  their OpenAI Data Controls/Codex settings.
+- OpenCode Zen free models. Great for free non-sensitive work, but warn that free/trial models may
+  retain prompts/outputs or use them to improve/train models.
 - Nous Portal OAuth.
 - Bring an API key.
 
 ### OpenCode Zen
+
+Before enabling this path, read `references/opencode-zen.md` and give the user the data-use
+warning. If the user chooses OpenAI-only for sensitive work, skip this provider entirely.
 
 Hermes has first-class `opencode-zen` support. Store the key in `~/.hermes/.env`, not in project
 docs or chat:
@@ -154,7 +159,9 @@ on that. If import fails, run a fresh device login:
 hermes auth add openai-codex --type oauth --no-browser
 ```
 
-The user opens the URL, enters the code, and approves. Then test:
+The user opens the URL, enters the code, and approves. Then use `references/openai-codex.md` to
+select the latest working mini model exposed to the signed-in account. Do not hardcode today's
+flagship model as the default. Point-in-time example only:
 
 ```bash
 hermes -z "Reply exactly: PONG" --provider openai-codex --model gpt-5.4-mini
